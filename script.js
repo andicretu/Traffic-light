@@ -1,6 +1,5 @@
 let time = 0;
-let intervalID
-
+let intervalID;
 function changeColorOnClick() {
     $('.btn-danger').on("click", function(){
       $(".btn-danger").removeClass('btn-danger');
@@ -16,16 +15,13 @@ function changeColorOnClick() {
         $(this).addClass("btn-danger");
     });
 }
-
 function increaseTime() {
     time += 1;
     let seconds = Math.floor(time % 1000 / 10)
 }
-
 function runTime() {
    intervalID = setInterval(increaseTime, 100)
 }
- 
 function changeColorByTime() {
     if ($(".btn-danger").hasClass('btn-danger')) {
         $(".btn-danger").removeClass('btn-danger').addClass("btn-warning");
@@ -35,9 +31,8 @@ function changeColorByTime() {
         $(".btn-success").removeClass('btn-success').addClass("btn-danger");
     }
 }
-
   $(document).ready(function() {
     runTime();
     changeColorOnClick();
-    setInterval(changeColorByTime, 10000); // Change color every 10 seconds
+    setInterval(changeColorByTime, 10000);
 });
