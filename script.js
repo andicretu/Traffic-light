@@ -1,20 +1,28 @@
 let time = 0;
 let intervalID;
-function changeColorOnClick() {
-    $('.btn-danger').on("click", function(){
-      $(".btn-danger").removeClass('btn-danger');
-      $(this).addClass("btn-warning");
-    });
 
-    $('.btn-warning').on("click", function(){
-        $(".btn-warning").removeClass('btn-warning');
-        $(this).addClass("btn-success");
-    });
-    $('.btn-success').on("click", function(){
-        $(".btn-success").removeClass('btn-success');
-        $(this).addClass("btn-danger");
-    });
+array_colors = ["btn-danger", "btn-warning", "btn-success"];
+let colorRange = 0;
+
+let button = document.getElementById('TLContainer');
+button.innerHTML  = `
+<div class="d-grid gap-2">
+  <button type="button" class="btn ${array_colors[colorRange]} btn-lg">Click me</button>
+</div>
+<br>`;
+
+function changeColor() {
+   if (colorRange < 3) {
+    button.querySelector('button').className = `btn ${array_colors[colorRange]} btn-lg`;
+    ++colorRange
+   } else {
+    colorRange = 0;
+    clearInterval(intervalID);
+    runTime();
+    button.querySelector('button').className = `btn ${array_colors[colorRange]} btn-lg`;
+   }
 }
+
 function increaseTime() {
     time += 1;
     let seconds = Math.floor(time % 1000 / 10)
@@ -22,17 +30,12 @@ function increaseTime() {
 function runTime() {
    intervalID = setInterval(increaseTime, 100)
 }
-function changeColorByTime() {
-    if ($(".btn-danger").hasClass('btn-danger')) {
-        $(".btn-danger").removeClass('btn-danger').addClass("btn-warning");
-    } else if ($(".btn-warning").hasClass('btn-warning')) {
-        $(".btn-warning").removeClass('btn-warning').addClass("btn-success");
-    } else if ($(".btn-success").hasClass('btn-success')) {
-        $(".btn-success").removeClass('btn-success').addClass("btn-danger");
-    }
-}
-  $(document).ready(function() {
+window.addEventListener('load', function() {
     runTime();
-    changeColorOnClick();
-    setInterval(changeColorByTime, 10000);
+    changeColor();
+    setInterval(changeColor, 10000);
+});
+
+window.addEventListener('click', function() {
+    changeColor();
 });
