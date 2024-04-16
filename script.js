@@ -1,5 +1,4 @@
 let time = 0;
-let intervalID;
 
 array_colors = ["btn-danger", "btn-warning", "btn-success"];
 let colorRange = 0;
